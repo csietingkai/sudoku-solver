@@ -20,7 +20,7 @@ To understand more about Sudoku: https://en.wikipedia.org/wiki/Sudoku
  ```
 the first argument is the filename (type: string)
 
-the second argument is the size (type: integer)
+the second argument is the size (type: integer), default is 3
 
 details are in the following
 
@@ -29,6 +29,7 @@ This created for solving a sudoku by load a txt file which store a sudoku questi
 
 The txt file format will like:
  ```
+ // resources/map1.txt
  5_89_6_42
  _97_341_5
  __42_7__3
@@ -39,3 +40,10 @@ The txt file format will like:
  ___6__279
  _26_71__8
  ```
+just like the txt files in resources folder.
+
+And the size means:
+
+if you want to solve a 9*9 sudoku
+
+then the size will be square(9) = 3
