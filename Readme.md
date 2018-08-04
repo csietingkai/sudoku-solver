@@ -46,4 +46,5 @@ And the size means:
 
 if you want to solve a 9*9 sudoku
 
-then the size will be square(9) = 3
+then the size will be root(9) = 3
+
