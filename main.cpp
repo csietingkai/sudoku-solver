@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-	Sudoku sudoku("map2");
+	Sudoku sudoku("map1", 4);
 	cout << sudoku << endl;
 	sudoku.solve();
 	cout << sudoku << endl;

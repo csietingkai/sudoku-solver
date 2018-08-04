@@ -28,15 +28,15 @@ class Sudoku
 		string filename;
 		int size;
 		int square;
-		char **elements;
+		int **elements;
 		
 		void load_file();
 		
 		const bool find_unsign(int& row, int& col);
-		const bool is_safe(const int row, const int col, const char num);
-		const bool used_in_box(const int row, const int col, const char num);
-		const bool used_in_row(const int row, const char num);
-		const bool used_in_col(const int col, const char num);
+		const bool is_safe(const int row, const int col, const int num);
+		const bool used_in_box(const int row, const int col, const int num);
+		const bool used_in_row(const int row, const int num);
+		const bool used_in_col(const int col, const int num);
 };
 
 void error(const string err_msg);

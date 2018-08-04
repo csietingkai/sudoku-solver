@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 #include "Sudoku.h"
 
 using namespace std;
@@ -13,10 +14,10 @@ Sudoku::Sudoku(const string filename, const int size)
 	this->size = size;
 	this->square = size * size;
 	
-	this->elements = new char*[size*size];
+	this->elements = new int*[size*size];
 	for(int i = 0; i < size*size; i++)
 	{
-		this->elements[i] = new char[size*size];
+		this->elements[i] = new int[size*size];
 		for(int j = 0; j < size*size; j++)
 		{
 			this->elements[i][j] = 0;
@@ -63,7 +64,20 @@ const string Sudoku::to_string() const
 	{
 		for(int j = 0; j < square; j++)
 		{
-			re += elements[i][j];
+			if(j%size == 0)
+			{
+				re += " ";
+			}
+			if(elements[i][j]/10 == 0)
+			{
+				re += " ";
+			}
+			re += " ";
+			re += std::to_string(elements[i][j]);
+		}
+		if((i+1)%size == 0)
+		{
+			re += '\n';
 		}
 		if(i != square-1)
 		{
@@ -123,18 +137,21 @@ const bool Sudoku::solve()
 	}
 	else
 	{
-		for(char num = '1'; num <= '9'; num++)
+		for(int num = 1; num <= square; num++)
 		{
 			if (is_safe(row, col, num))
 			{
 				elements[row][col] = num;
+				//cout << "solving (" << row << ", " << col << ") ";
+				//cout << "with value: " << num << endl;
+				//cout << *this << endl;
 
 				if (solve() == true)
 				{
 					return true;
 				}
 
-				elements[row][col] = '_';
+				elements[row][col] = 0;
 			}
 		}
 		return false;
@@ -155,10 +172,20 @@ void Sudoku::load_file()
 	int row = 0;
 	while(getline(fin, strin))
 	{
+		istringstream iss(strin);
+		vector<string> tokens;
+		tokens.resize(square);
 		for(int col = 0; col < square; col++)
 		{
-			elements[row][col] = strin[col];
+			getline(iss, tokens[col], ' ');
+			cout << tokens[col] << " ";
+			if(tokens[col].compare("_") == 0)
+			{
+				tokens[col] = "0";
+			}
+			elements[row][col] = stoi(tokens[col]);
 		}
+		cout << endl;
 		row++;
 	}
 	
@@ -171,7 +198,7 @@ const bool Sudoku::find_unsign(int& row, int& col)
 	{
 		for(col = 0; col < square; col++)
 		{
-			if(elements[row][col] == '_')
+			if(elements[row][col] == 0)
 			{
 				return true;
 			}
@@ -180,12 +207,12 @@ const bool Sudoku::find_unsign(int& row, int& col)
 	return false;
 }
 
-const bool Sudoku::is_safe(const int row, const int col, const char num)
+const bool Sudoku::is_safe(const int row, const int col, const int num)
 {
-	return !used_in_row(row, num) && !used_in_col(col, num) && !used_in_box(row - row%3 , col - col%3, num);
+	return !used_in_row(row, num) && !used_in_col(col, num) && !used_in_box(row - row%size , col - col%size, num);
 }
 
-const bool Sudoku::used_in_box(const int row, const int col, const char num)
+const bool Sudoku::used_in_box(const int row, const int col, const int num)
 {
 	for(int r = 0; r < size; r++)
 	{
@@ -200,7 +227,7 @@ const bool Sudoku::used_in_box(const int row, const int col, const char num)
     return false;
 }
 
-const bool Sudoku::used_in_row(const int row, const char num)
+const bool Sudoku::used_in_row(const int row, const int num)
 {
 	for(int col = 0; col < square; col++)
     {
@@ -212,7 +239,7 @@ const bool Sudoku::used_in_row(const int row, const char num)
 	return false;
 }
 
-const bool Sudoku::used_in_col(const int col, const char num)
+const bool Sudoku::used_in_col(const int col, const int num)
 {
 	for(int row = 0; row < square; row++)
     {

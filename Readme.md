@@ -29,16 +29,16 @@ This created for solving a sudoku by load a txt file which store a sudoku questi
 
 The txt file format will like:
  ```
- // resources/map1.txt
- 5_89_6_42
- _97_341_5
- __42_7__3
- 3715_9_24
- __21_____
- _6_7__351
- __5392_1_
- ___6__279
- _26_71__8
+ // resources/map2.txt
+ 4 _ 6 _ _ 8 _ 2 _
+ 5 2 9 _ _ _ _ 7 3
+ 3 _ 1 _ 2 7 6 5 4
+ 2 3 5 4 _ 9 1 _ _
+ 6 1 8 5 _ 2 _ _ 9
+ 7 _ _ 1 8 6 _ _ _
+ _ _ _ _ _ 3 5 1 8
+ 8 _ _ 7 6 1 4 9 _
+ _ _ _ _ _ 5 3 6 7
  ```
 just like the txt files in resources folder.
 
