@@ -1,4 +1,4 @@
-# Caesar Cipher
+# Soduku Solver
 Author: Ting-Kai Hu
 
 Today Date: 2018-08-01
